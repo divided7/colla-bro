@@ -1,12 +1,12 @@
 {
-  "name": "socketio-drawing",
+  "name": "collabro",
   "version": "1.0.0",
   "description": "A realtime drawing app using socketIO",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Gabriel Tanner",
+  "author": "Divyansh Singh",
   "license": "MIT",
   "keywords": [
     "socket io",
