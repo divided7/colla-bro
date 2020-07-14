@@ -1,26 +1,25 @@
 {
-  "name": "collabro",
+  "name": "collabr8",
   "version": "1.0.0",
-  "description": "A realtime drawing app using socketIO",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "socket-io": "^1.0.0"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/divided7/colla-bro.git"
   },
   "author": "Divyansh Singh",
   "license": "MIT",
-  "keywords": [
-    "socket io",
-    "drawing",
-    "javascript",
-    "sockets"
-  ],
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "nodemon": "^2.0.4",
-    "p5": "^1.0.0",
-    "socket.io": "^2.2.0"
-  }
+  "bugs": {
+    "url": "https://github.com/divided7/colla-bro/issues"
+  },
+  "homepage": "https://github.com/divided7/colla-bro#readme"
 }
