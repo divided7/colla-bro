@@ -15,14 +15,21 @@
 </head>
 
 <body>
-  <p>Choose color (# hex)</p>
-  <input type="text"  placeholder="#FFFFFF" id="pickcolor" class="colourpicker" />
-  <div id="color-holder" class="color-holder"></div>
-  <button id="color-btn">Change color</button>
-  <br />
-  <p>Choose stroke width</p>
-  <input type="text" name="stroke_width" placeholder="4" id="stroke-width-picker" class="stroke_width_picker" />
-  <button id="stroke-btn">Change stroke width</button>
+  <div class="sidebar">
+    <ul>
+        <li>
+            <label for="color">Color:</label>
+            <input type="color" id="color" />
+        </li>
+        <li>
+            <label for="weight">Stroke:</label>
+            <input type="number" id="weight" min="2" max="200" value="3" />
+        </li>
+        <li>
+            <button id="clear">clear</button>
+        </li>
+    </ul>
+</div>
   <ul id="messages"></ul>
   <form action="">
     <input id="m" autocomplete="off" /><button>Send</button>

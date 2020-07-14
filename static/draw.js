@@ -1,54 +1,54 @@
-let color = "#FFF";
-let strokeWidth = 4;
+const colorInput = document.getElementById("color");
+const weight = document.getElementById("weight");
+const clear = document.getElementById("clear");
+const paths = [];
+let currentPath = [];
 
 function setup() {
-  const cv = createCanvas(800, 600);
-  cv.position(600, 100);
-  cv.background(0);
+  createCanvas(window.innerWidth, window.innerHeight);
+  background(255);
 
   socket.on("mouse", (data) => {
-    stroke(data.color);
-    strokeWeight(data.strokeWidth);
-    line(data.x, data.y, data.px, data.py);
-  });
-
-  const color_picker = select("#pickcolor");
-  const color_btn = select("#color-btn");
-  const color_holder = select("#color-holder");
-
-  const stroke_width_picker = select("#stroke-width-picker");
-  const stroke_btn = select("#stroke-btn");
-
-  color_btn.mousePressed(() => {
-    // Checking if the input is a valid hex color
-    if (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color_picker.value())) {
-      color = color_picker.value();
-      color_holder.style("background-color", color);
-    } else {
-      console.log("Enter a valid hex value");
-    }
-  });
-
-  stroke_btn.mousePressed(() => {
-    const width = parseInt(stroke_width_picker.value());
-    if (width > 0) strokeWidth = width;
+    paths.push(data);
   });
 }
 
-function mouseDragged() {
-  stroke(color);
-  strokeWeight(strokeWidth);
-  line(mouseX, mouseY, pmouseX, pmouseY);
-  senddata(mouseX, mouseY, pmouseX, pmouseY);
+function draw() {
+  noFill();
+
+  if (mouseIsPressed) {
+    const point = {
+      x: mouseX,
+      y: mouseY,
+      color: colorInput.value,
+      weight: weight.value,
+    };
+    currentPath.push(point);
+  } else {
+    senddata(currentPath);
+  }
+
+  paths.forEach((path) => {
+    beginShape();
+    path.forEach((point) => {
+      stroke(point.color);
+      strokeWeight(point.weight);
+      vertex(point.x, point.y);
+    });
+    endShape();
+  });
 }
-function senddata(x, y, pX, pY) {
-  const data = {
-    x: x,
-    y: y,
-    px: pX,
-    py: pY,
-    color: color,
-    strokeWidth: strokeWidth,
-  };
-  socket.emit("mouse", data);
+
+function mousePressed() {
+  currentPath = [];
+  paths.push(currentPath);
+}
+
+clear.addEventListener("click", () => {
+  paths.splice(0);
+  background(255);
+});
+
+function senddata(sth) {
+  socket.emit("mouse", sth);
 }
