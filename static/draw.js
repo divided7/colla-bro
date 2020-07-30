@@ -1,54 +1,71 @@
-const colorInput = document.getElementById("color");
-const weight = document.getElementById("weight");
+var colorr=''
+const width = document.getElementById("weight");
 const clear = document.getElementById("clear");
-const paths = [];
-let currentPath = [];
+
+function update(clr){
+  window.colorr = clr;
+}
 
 function setup() {
-  createCanvas(window.innerWidth, window.innerHeight);
-  background(255);
-
-  socket.on("mouse", (data) => {
-    paths.push(data);
-  });
-}
-
-function draw() {
-  noFill();
-
-  if (mouseIsPressed) {
-    const point = {
-      x: mouseX,
-      y: mouseY,
-      color: colorInput.value,
-      weight: weight.value,
-    };
-    currentPath.push(point);
-  } else {
-    senddata(currentPath);
-  }
-
-  paths.forEach((path) => {
-    beginShape();
-    path.forEach((point) => {
-      stroke(point.color);
-      strokeWeight(point.weight);
-      vertex(point.x, point.y);
+  createCanvas(window.innerWidth, window.innerHeight*2/3);
+  background('#2f2f2f');
+  
+  socket.on('mouse',
+    function(data) {
+      stroke(data.clr);
+      strokeWeight(data.str)
+      line(data.x,data.y,data.px,data.py);
     });
-    endShape();
-  });
+    socket.on('touch',
+    function(data) {
+     stroke(data.clr);
+      strokeWeight(data.str)
+      line(data.x,data.y,data.px,data.py);
+    });
 }
 
-function mousePressed() {
-  currentPath = [];
-  paths.push(currentPath);
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight*2/3);
+  background('#2f2f2f');
 }
+
+function mouseDragged() {
+
+  strokeWeight(width.value);
+  stroke(colorr);
+  line(mouseX, mouseY, pmouseX, pmouseY);
+  // Make a little object with mouseX and mouseY
+  let data = {
+    x: mouseX,
+    y: mouseY,
+    px:pmouseX,
+    py:pmouseY,
+    clr:colorr,
+    str:width.value
+  };
+  // Send that object to the socket
+  socket.emit('mouse',data);
+}
+
+function touchMoved() {
+  strokeWeight(width.value)
+  stroke(colorr);
+  line(mouseX, mouseY, pmouseX, pmouseY);
+  // Make a little object with mouseX and mouseY
+  let data = {
+    x: mouseX,
+    y: mouseY,
+    px:pmouseX,
+    py:pmouseY,
+    clr:colorr,
+    str:width.value
+  };
+  // Send that object to the socket
+  socket.emit('touch',data);
+  return false;
+}
+
 
 clear.addEventListener("click", () => {
-  paths.splice(0);
-  background(255);
+  background('#2f2f2f');
 });
-
-function senddata(sth) {
-  socket.emit("mouse", sth);
-}

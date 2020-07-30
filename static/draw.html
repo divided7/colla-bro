@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Colla-Bro</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.min.js">
+  </script>
+
+</head>
+
+<body>
+  <div class="options">
+    <ul>
+        <li>
+            <label for="color">Color:</label>
+            <input type="color" id="color" value="#ffffff" onchange="update(this.value)"/>
+        </li>
+        <li>
+            <label for="weight">Stroke:</label>
+            <input type="number" id="weight" min="2" max="200" value="20"/>
+        </li>
+        <li>
+            <button id="clear">clear</button>
+        </li>
+    </ul>
+</div>
+<div id="chat">
+  <ul id="messages"></ul>
+  <form action="">
+    <input id="m" autocomplete="off" /><button>Send</button>
+  </form>
+  <script>
+    var socket = io();
+  </script>
+      <script type="text/javascript" src="chat.js"></script>
+    <script type="text/javascript" src="draw.js"></script>
+
+</body>
+
+</html>
