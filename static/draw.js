@@ -65,8 +65,6 @@ function touchMoved() {
   return false;
 }
 
-
 clear.addEventListener("click", () => {
   background('#2f2f2f');
-});
-  
+});  

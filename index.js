@@ -4,7 +4,10 @@ const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 const port=process.env.PORT || 3000;
 var bodyParser = require('body-parser');
-var room = ''
+var room = '';
+var username=''
+var users=[];
+var usernames = [];
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,13 +19,22 @@ app.get('/',function(req,res){
 })
 app.post('/room',function(req,res){
   room= req.body.room
+  username= req.body.name
   res.sendFile(__dirname + '/draw.html')
 })
 
 io.on("connection", (socket) => {
   socket.join(room);
-  console.log(`Connected :${socket.id} room: ${room}`);
-  socket.on("disconnect", () => console.log(`${socket.id} has disconnected`));
+  socket.to(room).emit("joined", username);
+  const user=addUser(socket.id,room,username)
+  console.log(`Connected :${socket.id} room: ${room} username: ${username}`);
+  socket.to(room).emit("members", usernames);
+  socket.on("disconnect", function(){
+     socket.to(user.room).emit('leave',user.name)
+     console.log(`${socket.id} disconnected`);
+    })
+
+
   socket.on('mouse',
   function(data) {
     // Send it to all other clients
@@ -43,3 +55,14 @@ io.on("connection", (socket) => {
 http.listen(port, () => {
   console.log(`listening on *:${port}`);
 });
+
+function addUser(id,room,name){
+  var user={id:id,name:name,room:room}
+  users.push(user);
+  usernames.push(user.name)
+  return user;
+}
+
+//TODO: users ki list display 
+//TODO: styling
+//TODO: (you) display
