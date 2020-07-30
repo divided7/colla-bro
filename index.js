@@ -12,19 +12,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('static'))
 
 app.get('/',function(req,res){
-  res.sendFile(__dirname + '/static/index.html')
+  res.sendFile(__dirname + '/index.html')
 })
-app.post('/room',function(request,response){
-    room= request.body.room
-    response.redirect('/draw')
-})
-app.get('/draw',function(req,res){
-  res.sendFile(__dirname + '/static/draw.html')
+app.post('/room',function(req,res){
+  room= req.body.room
+  res.sendFile(__dirname + '/draw.html')
 })
 
 io.on("connection", (socket) => {
   socket.join(room);
-  console.log(`Connected :${socket.id}`);
+  console.log(`Connected :${socket.id} room: ${room}`);
   socket.on("disconnect", () => console.log(`${socket.id} has disconnected`));
   socket.on('mouse',
   function(data) {
