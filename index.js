@@ -28,7 +28,7 @@ io.on("connection", (socket) => {
   socket.to(room).emit("joined", username);
   const user=addUser(socket.id,room,username)
   console.log(`Connected :${socket.id} room: ${room} username: ${username}`);
-  socket.to(room).emit("members", usernames);
+  io.in(room).emit("members", usernames);
   socket.on("disconnect", function(){
      socket.to(user.room).emit('leave',user.name)
      console.log(`${socket.id} disconnected`);
