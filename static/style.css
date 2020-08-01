@@ -7,28 +7,27 @@
   color:white
 }
 body{
-  /* overflow: hidden; */
   position: relative;
   background-color: #1f1f1f;
 }
-canvas{
-  position: absolute;
-  top:0px;
-  left: 0px;
-  z-index: -1;
-}
-#chat{
-  position: absolute;
-  top:100vh;
-  transform: translateY(-100%);
+body{
+  background-color: white;
 }
 #chat #messages{
-  height: 31vh;
   overflow-y: scroll;
   color: white;
 }
 .members{
   display: inline-block;
+}
+.you{
+  color:red
+}
+.notyou{
+  color:blue
+}
+.write{
+  height: 100vh;
 }
 @media only screen and (max-width:1000px){
   #chat #messages{

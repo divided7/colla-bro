@@ -47,8 +47,9 @@ io.on("connection", (socket) => {
     socket.to(room).emit('touch', data);
   }
   );
-  socket.on("chat message", (msg) => {
-    io.to(room).emit("chat message", msg);
+  socket.on("chat message", (data) => {
+    var sender=getSender(data.id)
+    io.to(room).emit("chatmessage", {msg:data.msg,sender:sender});
   });
 });
   
@@ -56,13 +57,19 @@ http.listen(port, () => {
   console.log(`listening on *:${port}`);
 });
 
+function getSender(id){
+  var sender={}
+  users.forEach(user => {
+    if (user.id==id){
+      sender = user
+    }
+  });
+  return sender
+}
+
 function addUser(id,room,name){
   var user={id:id,name:name,room:room}
   users.push(user);
   usernames.push(user.name)
   return user;
 }
-
-//TODO: users ki list display 
-//TODO: styling
-//TODO: (you) display

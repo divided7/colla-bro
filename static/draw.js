@@ -7,7 +7,7 @@ function update(clr){
 }
 
 function setup() {
-  createCanvas(window.innerWidth, window.innerHeight*2/3);
+  createCanvas(window.innerWidth*2/3, window.innerHeight*2/3);
   background('#2f2f2f');
   
   socket.on('mouse',
