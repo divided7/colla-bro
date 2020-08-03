@@ -20,7 +20,7 @@ app.get('/',function(req,res){
 app.post('/room',function(req,res){
   room= req.body.room
   username= req.body.name
-  res.sendFile(__dirname + '/draw.html')
+  res.sendFile(__dirname + '/collab.html')
 })
 
 io.on("connection", (socket) => {
