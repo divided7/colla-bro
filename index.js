@@ -57,7 +57,7 @@ io.on("connection", (socket) => {
 });
   
 http.listen(port, () => {
-  console.log(`listening on *:${port}`);
+  console.log(`listening on port:${port}`);
 });
 
 function getSender(id){
