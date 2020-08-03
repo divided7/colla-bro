@@ -1,9 +1,19 @@
 var options = {
   modules: {
+    'history': {          // Enable with custom configurations
+      'delay': 500,
+      'userOnly': true
+    },
     toolbar: [
-      [{ header: [1, 2, false] }],
-      ['bold', 'italic', 'underline'],
-      ['image', 'code-block']
+      [{ 'size': ['small', false, 'large', 'huge'] }], 
+      ['bold', 'italic', 'underline','strike'],
+      [{ 'color': [] }, { 'background': [] }], 
+      ['link','image', 'code-block'],
+      [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+      [{ 'indent': '-1'}, { 'indent': '+1' }],   
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+      ['clean']   
     ]
   },
   placeholder: 'Compose an epic...',
