@@ -26,8 +26,8 @@ body{
 .notyou{
   color:blue
 }
-.write{
-  height: 100vh;
+#write{
+  height: 80vh;
 }
 @media only screen and (max-width:1000px){
   #chat #messages{

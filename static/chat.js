@@ -46,7 +46,6 @@ $(function () {
       str += '<li>'+ member + '</li>';
     }); 
     str += '</ul>';
-
     document.getElementById("members").innerHTML = str;
   });
 });

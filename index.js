@@ -51,6 +51,9 @@ io.on("connection", (socket) => {
     var sender=getSender(data.id)
     io.to(room).emit("chatmessage", {msg:data.msg,sender:sender});
   });
+  socket.on("likhle", (data) => {
+    socket.to(room).emit("write", data);
+  });
 });
   
 http.listen(port, () => {
